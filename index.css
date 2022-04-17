@@ -1,0 +1,76 @@
+html, body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: rgb(34, 40, 49);
+}
+
+.btn {
+    cursor: pointer;
+    width: fit-content;
+}
+
+.btn-1 {
+    padding: 5px 10px 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: 0.15s;
+}
+
+.btn-blue {
+    background-color: rgb(0, 172, 230);
+    color: white;
+}
+
+.btn-blue:hover {
+    background-color:rgb(0, 116, 155)
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(85, 93, 105); 
+    border-radius: 10px;
+}
+
+#main {
+    width: 100%;
+}
+
+#game-sidebar-container {
+    display: inline-block;
+    width: 200px;
+    height: 100%;
+    background-color: rgb(54, 63, 77);
+    color: white;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+#game-sidebar {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+#game-display {
+    display: inline-block;
+    width: calc(100% - 215px);
+    vertical-align: top;
+}
+
+.game-sidebar-list-element {
+    width: 100%;
+    padding: 5px 0 5px 5px;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.game-sidebar-list-element > p {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.game-sidebar-list-element.selected {
+    background-color: rgb(116, 135, 151);
+}

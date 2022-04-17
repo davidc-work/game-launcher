@@ -1,0 +1,24 @@
+{
+  "name": "game-launcher",
+  "version": "1.0.0",
+  "description": "Launches games!",
+  "main": "main.js",
+  "devDependencies": {
+    "electron": "^18.0.4"
+  },
+  "scripts": {
+    "test": "test",
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@node-steam/vdf": "^2.2.0",
+    "electron-context-menu": "^3.1.2",
+    "electron-reload": "^2.0.0-alpha.1",
+    "open-shortcut": "^4.0.0",
+    "shortcut-url": "^4.0.0",
+    "steam-acf-parser": "^1.0.0",
+    "url-filea": "^1.0.0"
+  }
+}

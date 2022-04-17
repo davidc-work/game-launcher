@@ -1,0 +1,43 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\r2dav\.node\corepack\yarn\1.22.15\bin\yarn.js add @node-steam/vdf
+
+PATH: 
+  C:\Users\r2dav\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\r2dav\bin;C:\Python310\Scripts;C:\Python310;C:\Program Files\Eclipse Adoptium\jre-8.0.312.7-hotspot\bin;C:\Program Files\Oculus\Support\oculus-runtime;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Users\r2dav\AppData\Local\Microsoft\WindowsApps;C:\Users\r2dav\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\r2dav\AppData\Local\GitHubDesktop\bin;C:\Users\r2dav\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.15
+
+Node version: 
+  16.14.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EBUSY: resource busy or locked, unlink 'C:\Users\r2dav\Documents\GitHub\game-launcher\node_modules\electron\dist\icudtl.dat'
+
+npm manifest: 
+  {
+    "name": "game-launcher",
+    "version": "1.0.0",
+    "description": "Launches games!",
+    "main": "main.js",
+    "devDependencies": {
+      "electron": "^18.0.4"
+    },
+    "scripts": {
+      "test": "test",
+      "start": "electron ."
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "electron-reload": "^2.0.0-alpha.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
