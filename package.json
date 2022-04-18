@@ -16,6 +16,7 @@
     "@node-steam/vdf": "^2.2.0",
     "electron-context-menu": "^3.1.2",
     "electron-reload": "^2.0.0-alpha.1",
+    "fetch-installed-software": "^0.0.7",
     "open-shortcut": "^4.0.0",
     "shortcut-url": "^4.0.0",
     "steam-acf-parser": "^1.0.0",

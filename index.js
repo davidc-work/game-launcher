@@ -5,6 +5,8 @@ const urlFile = require('url-filea');
 const shell = require('electron').shell;
 const VDF = require('@node-steam/vdf');
 
+let steamInstallDir;
+
 let steamGames, allGames;
 let selectedGame = {};
 
@@ -30,7 +32,7 @@ const parseACF = acf => {
 }
 
 const getSteamGames = () => {
-    const libraryFoldersListPath = 'C:\\Program Files (x86)\\Steam\\steamapps\\libraryfolders.vdf';
+    const libraryFoldersListPath = steamInstallDir + '\\steamapps\\libraryfolders.vdf';
     const vdf = fs.readFileSync(libraryFoldersListPath).toString();
 
     const folders = VDF.parse(vdf).libraryfolders;
@@ -107,4 +109,11 @@ const playSelectedGame = () => {
     }
 }
 
-$(document).ready(populateGamesList);
+$(document).ready(() => {
+    require('fetch-installed-software').getAllInstalledSoftware().then(programs => {
+        const steamInfo = programs.find(program => program.RegistryDirName == 'Steam');
+        steamInstallDir = steamInfo.DisplayIcon.slice(0, steamInfo.DisplayIcon.lastIndexOf('\\'));
+    
+        populateGamesList();
+    });
+});
