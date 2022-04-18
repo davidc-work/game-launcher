@@ -1,23 +1,63 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="index.css">
-        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-        <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-        <script src="index.js"></script>
-        <script>if (window.module) module = window.module;</script>
 
-    </head>
-    <body>
-        <div id="main">
-            <div id="game-sidebar-container">
-                <div id="game-sidebar"></div>
-            </div>
-            <div id="game-display">
-                <div class="btn btn-1 btn-blue" onclick="playSelectedGame()">Play</div>
+<head>
+    <link rel="stylesheet" href="index.css">
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+    <script>if (window.module) module = window.module;</script>
+
+</head>
+
+<body>
+    <div id="main">
+        <div id="game-sidebar-container">
+            <div id="game-sidebar"></div>
+        </div>
+        <div id="game-display">
+            <div id="game-display-content">
+                <div id="game-display-header">
+                    <div id="header-text-container">
+                        <p class="header-text header-1"></p>
+                    </div>
+                    <div id="play-button" class="btn btn-1 btn-blue" onclick="playSelectedGame()">Play</div>
+                </div>
+                <div id="create-community-button" class="btn btn-1 btn-blue" onclick="createCommunity()">Create
+                    Community</div>
+                <div id="community-container">
+                    <div id="community-sidebar-container">
+                        <div id="community-sidebar">
+                            <div id="main-community-content">
+                                <div class="sidebar-header">Public Servers</div>
+                                <div id="public-servers-list-container">
+                                    <div id="public-servers-list"></div>
+                                </div>
+                                <div class="btn btn-sidebar" onclick="createPublicServer()">+ Create Public Server</div>
+                            </div>
+                            <div id="server-content">
+                                <div class="sidebar-header">Channels</div>
+                                <div id="channel-list-container">
+                                    <div id="channel-list"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="public-servers-all"></div>
+                    </div>
+                    <div id="community-display">
+                        <div id="server-chat-all">
+                            <div class="chat-container">
+                                <div class="chat"></div>
+                            </div>
+                            <div class="chat-box-container">
+                                <div class="chat-box"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

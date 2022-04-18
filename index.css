@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     font-family: sans-serif;
     background-color: rgb(34, 40, 49);
@@ -10,8 +11,8 @@ html, body {
 }
 
 .btn-1 {
-    padding: 5px 10px 5px 10px;
-    font-size: 14px;
+    padding: 5px 20px 5px 20px;
+    font-size: 18px;
     border-radius: 5px;
     transition: 0.15s;
 }
@@ -22,7 +23,22 @@ html, body {
 }
 
 .btn-blue:hover {
-    background-color:rgb(0, 116, 155)
+    background-color: rgb(0, 116, 155)
+}
+
+.btn-sidebar {
+    width: 100%;
+    color: white;
+    text-align: center;
+    padding: 5px 0 5px 0;
+}
+
+.btn-sidebar>p {
+    margin: 0;
+}
+
+.btn-sidebar:hover {
+    background-color: rgb(77, 77, 77);
 }
 
 ::-webkit-scrollbar {
@@ -30,17 +46,19 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgb(85, 93, 105); 
+    background: rgb(85, 93, 105);
     border-radius: 10px;
 }
 
 #main {
     width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #game-sidebar-container {
     display: inline-block;
-    width: 200px;
+    width: 250px;
     height: 100%;
     background-color: rgb(54, 63, 77);
     color: white;
@@ -55,8 +73,18 @@ html, body {
 
 #game-display {
     display: inline-block;
-    width: calc(100% - 215px);
+    width: calc(100% - 250px);
+    height: 100%;
     vertical-align: top;
+    position: relative;
+    left: -4px;
+}
+
+#game-display-header {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    background-color: rgb(49, 81, 102);
 }
 
 .game-sidebar-list-element {
@@ -66,11 +94,217 @@ html, body {
     transition: 0.1s;
 }
 
-.game-sidebar-list-element > p {
+.game-sidebar-list-element>p {
     margin: 0;
     white-space: nowrap;
 }
 
 .game-sidebar-list-element.selected {
     background-color: rgb(116, 135, 151);
+}
+
+#play-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+
+#header-text-container {
+    padding-top: 70px;
+    margin: auto;
+    width: fit-content;
+}
+
+.header-1 {
+    margin: 0;
+    font-size: 48px;
+    color: white;
+}
+
+#create-community-button {
+    margin-top: 20px;
+    margin-left: 20px;
+    display: none;
+}
+
+#create-community-button.visible {
+    display: block;
+}
+
+#community-container {
+    display: none;
+    width: 100%;
+    height: calc(100% - 200px);
+    background-color: rgb(41, 43, 46);
+}
+
+#community-container.visible {
+    display: block;
+}
+
+#community-sidebar-container {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+    height: 100%;
+    background-color: rgb(44, 47, 51);
+    overflow-y: scroll;
+}
+
+#community-sidebar {
+    width: 100%;
+    height: calc(100% - 30px);
+}
+
+#community-display {
+    display: inline-block;
+    width: calc(100% - 206px);
+    height: 100%;
+    background-color: rgb(61, 65, 68);
+    background-color: #2e2e2e;
+}
+
+#public-servers-all {
+    width: 100%;
+    height: fit-content;
+    padding: 10px 0 10px 0;
+}
+
+#public-servers-list-container {
+    margin-top: 5px;
+    height: fit-content;
+    max-height: 600px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#public-servers-list {
+    border-radius: 10px;
+    background-color: rgb(56, 60, 65);
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.server-list-element {
+    padding: 10px 0 10px 0;
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-indent: 10px;
+    width: 100%;
+    transition: 0.25s;
+}
+
+.server-list-element:hover {
+    background-color: #2a2a2a;
+    text-indent: 20px;
+}
+
+/* .server-list-element {
+    padding: 10px 0 10px 0;
+    margin: 10px 0 10px 0;
+    cursor: pointer;
+    border-radius: 10px;
+    box-sizing: border-box;
+    text-indent: 10px;
+    width: 0;
+    transition: 0.25s;
+}
+
+.server-list-element:hover {
+    background-color: #2a2a2a;
+    width: 100%;
+    text-indent: 20px;
+} */
+
+.server-list-element:first-child {
+    margin-top: 0;
+}
+
+.server-list-element:last-child {
+    margin-bottom: 0;
+}
+
+.server-list-element>p {
+    margin: 0;
+    color: white;
+}
+
+#main-community-content {
+    padding: 20px 0 20px 0;
+}
+
+#community-sidebar>*,
+#community-display>* {
+    display: none;
+}
+
+#community-sidebar>*.visible,
+#community-display>*.visible {
+    display: block;
+}
+
+.sidebar-header {
+    color: white;
+    text-align: center;
+    font-size: 24px;
+    margin: 10px;
+}
+
+.channel-list-item.selected {
+    background-color: #3a4c60 !important;
+}
+
+.chat-container {
+    width: 100%;
+    height: calc(100% - 60px);
+    padding: 10px 10px 5px 10px;
+    box-sizing: border-box;
+}
+
+.chat {
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.chat-msg {
+    color: white;
+    margin: 20px 0 20px 0;
+}
+
+.chat-msg>p {
+    margin: 5px;
+}
+
+.chat-msg>p:first-child {
+    color: rgb(0, 172, 230);
+    font-size: 18px;
+}
+
+.chat-msg:first-child {
+    margin-top: 0;
+}
+
+.chat-msg:last-child {
+    margin-bottom: 0;
+}
+
+.chat-box-container {
+    width: 100%;
+    height: 55px;
+    padding: 0 10px 10px 10px;
+    box-sizing: border-box;
+}
+
+.chat-box {
+    width: 100%;
+    height: 100%;
+    background-color: #444444;
+    box-sizing: border-box;
+    border-radius: 10px;
 }
