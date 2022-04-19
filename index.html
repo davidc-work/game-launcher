@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="index.css">
     <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+    <script src="node_modules/feather-icons/dist/feather.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
@@ -12,6 +13,8 @@
 
 <body>
     <div id="main">
+        <div id="reset-button" class="btn btn-1 btn-blue"
+            style="position: absolute; right: 10px; top: 10px; z-index: 9;" onclick="reset()">Reset</div>
         <div id="game-sidebar-container">
             <div id="game-sidebar"></div>
         </div>
@@ -50,7 +53,10 @@
                                 <div class="chat"></div>
                             </div>
                             <div class="chat-box-container">
-                                <div class="chat-box"></div>
+                                <div class="chat-box">
+                                    <i data-feather="plus-circle"></i>
+                                    <input type="text">
+                                </div>
                             </div>
                         </div>
                     </div>

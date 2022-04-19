@@ -9,7 +9,7 @@ const community = require('./modules/community');
 let steamInstallDir;
 
 let steamGames, allGames;
-let com, selectedPublicServer;
+let com, selectedPublicServer, selectedChannel;
 let selectedGame = {};
 
 const parseACF = acf => {
@@ -75,7 +75,6 @@ const getSteamGames = () => {
 
 const updateGamesList = () => {
     steamGames = getSteamGames();
-    console.log(steamGames);
     allGames = steamGames.sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -107,32 +106,6 @@ const toggleCommunityPage = mode => {
     $('#' + c.sidebar + ', ' + '#' + c.display).addClass('visible');
 }
 
-const toggleCommunitySidebar = mode => {
-    console.log('toggling sidebar mode');
-    const content = {
-        main: 'main-community-content',
-        server: 'server-content'
-    }
-    $('#community-sidebar>*').removeClass('visible');
-    $('#' + content[mode]).addClass('visible');
-
-    // switch (mode) {
-    //     case 'main':
-    //         $('#main-community-content').addClass('visible');
-    //         break;
-    //     case 'server':
-    //         $('#server-content').addClass('visible');
-    //         break;
-    // }
-}
-
-const toggleCommunityDisplay = mode => {
-    const content = {
-        main: '',
-        server: 'server'
-    }
-}
-
 const createPublicServer = () => community.createPublicServer(selectedGame.communityName);
 
 const setCommunity = communityName => {
@@ -147,7 +120,6 @@ const updateCommunity = communityName => {
     return new Promise(resolve => {
         (async () => {
             const result = await community.get(communityName);
-            console.log(result.data);
 
             toggleCommunityExists(result.data.exists);
 
@@ -160,8 +132,11 @@ const routeCommunityHome = () => {
     return new Promise(resolve => {
         if (!com.exists) resolve();
 
+        selectedPublicServer = undefined;
+        selectedChannel = undefined;
+
         $('#public-servers-list').html('');
-        com.data.publicServers.forEach(server => {
+        com.publicServers.forEach(server => {
             const e = $('<div>').addClass('server-list-element');
             e.append($('<p>').text(server.name));
             e.click(() => {
@@ -174,14 +149,22 @@ const routeCommunityHome = () => {
     });
 }
 
+const reset = async () => {
+    const res = await community.reset();
+    console.log(res);
+}
+
 const routeCommunityServer = serverName => {
-    return new Promise(resolve => {
+    return new Promise(async resolve => {
         if (!com.exists) resolve();
 
-        let server;
-        if (server = com.data.publicServers.find(server => server.name == serverName)) {
-            console.log(server);
+        let serverData;
+        if (serverData = com.publicServers.find(server => server.name == serverName)) {
+            selectedPublicServer = serverData;
+
             toggleCommunityPage('server');
+
+            const server = await community.getServer(com.name, serverData.name);
 
             $('#channel-list').html('');
             server.channels.forEach(channel => {
@@ -191,7 +174,7 @@ const routeCommunityServer = serverName => {
                 $('#channel-list').append(e);
             });
 
-            selectChannel(server, 'welcome');
+            selectChannel(server, 'main');
         }
 
         resolve();
@@ -199,7 +182,10 @@ const routeCommunityServer = serverName => {
 }
 
 const selectChannel = (server, channelName) => {
-    const chat = server.channels.find(channel => channel.name == channelName).chat;
+    const channel = server.channels.find(channel => channel.name == channelName);
+    selectedChannel = channel;
+
+    const chat = channel.chat;
 
     if (!chat) return;
 
@@ -207,10 +193,10 @@ const selectChannel = (server, channelName) => {
     $($('.channel-list-item').toArray().find(e => e.children[0].innerText == channelName)).addClass('selected');
 
     $('#community-display .chat').html('');
-    chat.forEach(msg => {
+    chat.messages.forEach(message => {
         const e = $('<div>').addClass('chat-msg');
-        e.append($('<p>').text(msg.username));
-        e.append($('<p>').text(msg.body));
+        e.append($('<p>').text(message.user));
+        e.append($('<p>').text(message.msg));
         $('#community-display .chat').append(e)
     });
 }
@@ -233,16 +219,12 @@ const selectGame = async game => {
     $('#header-text-container > p').text(game.name);
 
     await setCommunity(selectedGame.communityName);
-    console.log('community set');
 
     await routeCommunityHome();
-
-    console.log(selectedGame);
 }
 
 const createCommunity = async () => {
     const result = await community.create(selectedGame.communityName);
-    console.log(result.data);
     toggleCommunityExists(result.data.success);
 }
 
@@ -267,11 +249,22 @@ const playSelectedGame = () => {
     }
 }
 
+const sendChat = community.sendChat;
+
 $(document).ready(() => {
+    feather.replace({ color: 'white' });
+
     require('fetch-installed-software').getAllInstalledSoftware().then(programs => {
         const steamInfo = programs.find(program => program.RegistryDirName == 'Steam');
         steamInstallDir = steamInfo.DisplayIcon.slice(0, steamInfo.DisplayIcon.lastIndexOf('\\'));
 
         populateGamesList();
+    });
+
+    $('.chat-box > input').on('keyup', e => {
+        if (e.key == 'Enter') {
+            sendChat(e.target.value, com.data.communityName, selectedPublicServer.name, selectedChannel.name);
+            e.target.value = '';
+        }
     });
 });

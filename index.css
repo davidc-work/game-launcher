@@ -160,8 +160,7 @@ body {
     display: inline-block;
     width: calc(100% - 206px);
     height: 100%;
-    background-color: rgb(61, 65, 68);
-    background-color: #2e2e2e;
+    background-color: #343434;
 }
 
 #public-servers-all {
@@ -307,4 +306,23 @@ body {
     background-color: #444444;
     box-sizing: border-box;
     border-radius: 10px;
+    padding: 3px 5px 3px 5px;
+}
+
+.chat-box>svg {
+    width: 25px;
+    padding: 0 10px 0 10px;
+    height: 100%;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.chat-box>input {
+    background: none;
+    border: none;
+    width: calc(100% - 50px);
+    height: 100%;
+    color: rgb(255, 255, 255);
+    outline: none;
+    font-size: 16px;
 }
