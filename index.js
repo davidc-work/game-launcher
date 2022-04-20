@@ -16,6 +16,8 @@ socket.on('connect', () => {
     console.log('connected');
 });
 
+socket.on('update-chat', () => console.log('update chat'));
+
 const community = require('./modules/community')(socket);
 
 const parseACF = acf => {
@@ -189,10 +191,13 @@ const routeCommunityServer = serverName => {
     });
 }
 
-const selectChannel = (server, channelName) => {
+const selectChannel = async (server, channelName) => {
     $('#community-display .chat').html('');
     const channel = server.channels.find(channel => channel.name == channelName);
     selectedChannel = channel;
+
+    const answer = await community.joinChannel(selectedChannel._id);
+    console.log(answer);
 
     const chat = channel.chat;
 

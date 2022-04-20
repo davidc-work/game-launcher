@@ -35,7 +35,7 @@ app.whenReady().then(() => {
 
     const globalShortcut = electron.globalShortcut;
 
-    globalShortcut.register('CommandOrControl+R', function() {
+    globalShortcut.register('CommandOrControl+R', function () {
         win.reload();
     });
 
