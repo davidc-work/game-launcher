@@ -4,13 +4,19 @@ const urlFile = require('url-filea');
 
 const shell = require('electron').shell;
 const VDF = require('@node-steam/vdf');
-const community = require('./modules/community');
 
 let steamInstallDir;
 
 let steamGames, allGames;
 let com, selectedPublicServer, selectedChannel;
 let selectedGame = {};
+
+const socket = io('http://127.0.0.1:3001');
+socket.on('connect', () => {
+    console.log('connected');
+});
+
+const community = require('./modules/community')(socket);
 
 const parseACF = acf => {
     const spl = acf.split('"').reduce((a, b, i) => {
@@ -110,7 +116,7 @@ const createPublicServer = () => community.createPublicServer(selectedGame.commu
 
 const setCommunity = communityName => {
     return new Promise(async resolve => {
-        com = (await updateCommunity(communityName)).data;
+        com = await updateCommunity(communityName);
         toggleCommunityPage('main');
         resolve();
     });
@@ -120,8 +126,9 @@ const updateCommunity = communityName => {
     return new Promise(resolve => {
         (async () => {
             const result = await community.get(communityName);
+            console.log(result);
 
-            toggleCommunityExists(result.data.exists);
+            toggleCommunityExists(result.exists);
 
             resolve(result);
         })();
@@ -155,6 +162,7 @@ const reset = async () => {
 }
 
 const routeCommunityServer = serverName => {
+    $('#community-display .chat').html('');
     return new Promise(async resolve => {
         if (!com.exists) resolve();
 
@@ -182,6 +190,7 @@ const routeCommunityServer = serverName => {
 }
 
 const selectChannel = (server, channelName) => {
+    $('#community-display .chat').html('');
     const channel = server.channels.find(channel => channel.name == channelName);
     selectedChannel = channel;
 
@@ -192,7 +201,6 @@ const selectChannel = (server, channelName) => {
     $('.channel-list-item').removeClass('selected');
     $($('.channel-list-item').toArray().find(e => e.children[0].innerText == channelName)).addClass('selected');
 
-    $('#community-display .chat').html('');
     chat.messages.forEach(message => {
         const e = $('<div>').addClass('chat-msg');
         e.append($('<p>').text(message.user));
@@ -225,7 +233,9 @@ const selectGame = async game => {
 
 const createCommunity = async () => {
     const result = await community.create(selectedGame.communityName);
-    toggleCommunityExists(result.data.success);
+    toggleCommunityExists(result.success);
+
+    console.log(result);
 }
 
 const populateGamesList = () => {
@@ -261,9 +271,11 @@ $(document).ready(() => {
         populateGamesList();
     });
 
-    $('.chat-box > input').on('keyup', e => {
+    $('.chat-box > input').on('keyup', async e => {
         if (e.key == 'Enter') {
-            sendChat(e.target.value, com.data.communityName, selectedPublicServer.name, selectedChannel.name);
+            console.log(com);
+            const result = await sendChat(e.target.value, selectedChannel, socket);
+            console.log(result);
             e.target.value = '';
         }
     });
